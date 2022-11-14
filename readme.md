@@ -7,7 +7,7 @@
 ***
 Для запуска сервера:  
 1. Выполните команду `npm i`
-2. Настройте переменные .env
+2. Настройте переменные [.env](https://github.com/ImAllergicToFish/CloudStorageTask/blob/master/.env)
 3. Выполните команду `npm start`:
 
 ## Примечания
