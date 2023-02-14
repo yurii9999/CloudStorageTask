@@ -30,6 +30,7 @@ app.ws('/api', wsHandler);
 const routes = express.Router();
 
 require('./http/example').default(routes);
+require("./http/user").default(routes)
 
 app.use('/api', routes);
 
