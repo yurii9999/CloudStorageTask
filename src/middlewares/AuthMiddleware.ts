@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { AuthRequest, ExpectedJwrPayload } from '../ts/interfaces';
+import { AuthRequest, ExpectedJwrPayload } from '../ts/types';
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     try {

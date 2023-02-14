@@ -1,6 +1,6 @@
 import ApiResponseHandler from '../apiResponseHandler';
 import { Request, Response, NextFunction } from 'express';
-import { AuthRequest } from '../../../ts/interfaces';
+import { AuthRequest } from '../../../ts/types';
 
 export default async (req: Request, res: Response) => {
     try {

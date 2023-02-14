@@ -14,6 +14,10 @@ export default class ApiResponseHandler {
         }
     }
 
+    static async messageResponse(req: Request, res: Response, message: string, code: number) {
+        res.status(code).send( { message: message } )
+    }
+
     static async customSuccess(req: Request, res: Response, payload: unknown, code?: number) {
         if (!code) code = 200;
         if (payload !== undefined) {

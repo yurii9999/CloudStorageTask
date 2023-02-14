@@ -1,6 +1,7 @@
 import ApiResponseHandler from '../apiResponseHandler';
 import { Request, Response, NextFunction } from 'express';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
+import { AuthData } from '../../../ts/types';
 
 
 export default async (req: Request, res: Response) => {
@@ -10,11 +11,12 @@ export default async (req: Request, res: Response) => {
 
         if (isMatch) {
             const secret: Secret = "secret"
-            const token = jwt.sign({ user_id: userId }, secret);
-            return ApiResponseHandler.success(req, res, { user_id: userId, token: token}); 
+            const payload: AuthData = { user_id : userId }
+            const token = jwt.sign(payload, secret);
+            return ApiResponseHandler.success(req, res, { token: token }); 
         }
 
-        return ApiResponseHandler.error(req, res, { message: "where's id?" })
+        return ApiResponseHandler.messageResponse(req, res, "Please, specify id", 400)
     } catch (error) {
         await ApiResponseHandler.error(req, res, error);
     }
