@@ -12,18 +12,6 @@ export default async (req: Request, res: Response) => {
         
         const signInData: SignInData = { login: req.body.login, password: req.body.password }
         return ApiResponseHandler.success(req, res, await UserService.signInUser(signInData))
-        
-        const userId = req.body.user_id
-        const isMatch: boolean = userId
-
-        if (isMatch) {
-            const secret: Secret = "secret"
-            const payload: AuthData = { user_id : userId }
-            const token = jwt.sign(payload, secret);
-            return ApiResponseHandler.success(req, res, { token: token }); 
-        }
-
-        return ApiResponseHandler.messageResponse(req, res, "Please, specify id", 400)
     } catch (error) {
         await ApiResponseHandler.error(req, res, error);
     }

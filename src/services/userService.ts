@@ -1,5 +1,6 @@
 import { User } from "../models/userModels";
-import { NewUser, SignInData, SignInResponse } from "../ts/types";
+import { AuthData, NewUser, SignInData, SignInResponse } from "../ts/types";
+import { JwtService } from "./jwtService";
 
 export default class UserService {
     static async signUpUser(newUser: NewUser) {
@@ -11,9 +12,8 @@ export default class UserService {
         const user = await User.findOne( signInData )
         if ( user === null ) 
             return { message: "Incorrect login or password" }
-            
-
-        const token: string = "token"
+        
+        const token: string = await JwtService.sign( { user_id: user._id.toString() } )
         return { message: "Successfully signed in", token: token }
     }
 }   
