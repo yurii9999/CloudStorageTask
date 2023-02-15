@@ -11,6 +11,12 @@ export type EchoMessage = {
     isEcho: boolean
 } & ExampleMessage;
 
+export type NewUser = {
+    login: string,
+    password: string,
+    email: string
+}
+
 
 import { Request } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
