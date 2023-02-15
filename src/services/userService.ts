@@ -16,4 +16,12 @@ export default class UserService {
         const token: string = await JwtService.sign( { user_id: user._id.toString() } )
         return { message: "Successfully signed in", token: token }
     }
+
+    static async getEmail(authData: AuthData) {
+        const user = await User.findById(authData.user_id)
+        if ( user === null )
+            return { message: "Can't find any users" }
+        
+        return { email: user.email }
+    }
 }   
