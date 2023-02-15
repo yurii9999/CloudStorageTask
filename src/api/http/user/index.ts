@@ -6,6 +6,10 @@ export default (app: express.Application) => {
         '/signin', 
         require('./signIn').default
     );
+    app.post(
+        '/signup', 
+        require('./signUp').default
+    );
     app.get(
         '/profile/email', 
         authMiddleware,
