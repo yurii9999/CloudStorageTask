@@ -11,10 +11,19 @@ export type EchoMessage = {
     isEcho: boolean
 } & ExampleMessage;
 
+export type GetEmailResponse = {
+    message?: string,
+    email?: string
+}
+
 export type NewUser = {
     login: string,
     password: string,
     email: string
+}
+
+export type SignUpResponse = {
+    message: string
 }
 
 export type SignInData = {

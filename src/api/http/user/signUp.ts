@@ -1,17 +1,13 @@
 import ApiResponseHandler from '../apiResponseHandler';
 import { Request, Response } from 'express';
-import { NewUser } from '../../../ts/types';
+import { NewUser, SignInResponse } from '../../../ts/types';
 import UserService from '../../../services/userService';
 
-export default async (req: Request, res: Response) => {
+export default async (req: Request<{}, {}, NewUser>, res: Response<SignInResponse>) => {
     try {
-        const newUser:NewUser = req.body
-        if ( !newUser.email || !newUser.password || !newUser.login )
-            return ApiResponseHandler.messageResponse(req, res, "Specify email, login and password", 400)
-        
-        await UserService.signUpUser( newUser )
-
-        return ApiResponseHandler.messageResponse(req, res, "User created", 200)
+        const newUser:NewUser = req.body        
+        const response = await UserService.signUpUser( newUser )
+        await ApiResponseHandler.success(req, res, response)
     } catch (error) {
         await ApiResponseHandler.error(req, res, error);
     }
