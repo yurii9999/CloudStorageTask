@@ -31,7 +31,7 @@ import { Request } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 
 export type AuthData =  {
-    user_id: string | null
+    user_id: string
 }
 
 export type AuthRequest = Request & AuthData

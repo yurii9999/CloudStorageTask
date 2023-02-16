@@ -1,5 +1,5 @@
 import express from 'express';
-import { authMiddleware } from '../../../middlewares/AuthMiddleware';
+import { authMiddleware } from '../../../middlewares/authMiddleware';
 
 export default (app: express.Application) => {
     app.post(
