@@ -1,16 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { AuthData, AuthRequest, ExpectedJwrPayload } from '../ts/types';
+import { JwtService } from '../services/jwtService';
 
-export async function authMiddleware(req: Request<AuthData>, res: Response, next: NextFunction) {
-    try {       
-        const secret: jwt.Secret = "secret"
+export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+    try {
         const token = req.header('Authorization')?.replace('Bearer ', '');
         if (!token)
             return next();
 
-        const decoded = jwt.verify(token, secret) as ExpectedJwrPayload
-        req.params = decoded
+        req.params = JwtService.decode(token)
         
         return next();
     } catch (error) {
