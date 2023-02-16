@@ -5,7 +5,7 @@ import UserService from '../../../services/userService';
 
 export default async (req: Request, res: Response) => {
     try {
-        const userId = (req as AuthRequest).user_id
+        const userId = req.params.user_id
         if ( !userId )
             return ApiResponseHandler.messageResponse(req, res, "You need to authorize to view email", 400)
 
