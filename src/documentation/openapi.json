@@ -69,7 +69,80 @@
                     }
                 }
             }
+        }, 
+        "/signin": {
+            "post": {
+                "tags": ["user"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignInRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "If user data are correct, return token for authentification",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SingInResponse" 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/signup": {
+            "post": {
+                "tags": ["user"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignUpRequestBody"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "If login and email were not used before, sign up new user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SignUpResponse" 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/profile/email": {
+            "get": {
+                "tags": ["user"],
+                "security": [{ "bearerAuth":[] }],
+                "responses": {
+                    "200": {
+                        "description": "User's email",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetEmailResponse" 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+        
     },
     "components": {
         "schemas": {
@@ -102,6 +175,51 @@
                         "readOnly": true
                     }
                 }
+            },
+            "SignInRequestBody": {
+                "type": "object",
+                "properties": {
+                    "login": { "type": "string" },
+                    "password": { "type": "string" }
+                }
+            },
+            "SingInResponse": {
+                "type": "object",
+                "properties": {
+                    "message": { "type": "string" },
+                    "token": { 
+                        "type": "string",
+                        "required": false
+                     }
+                }
+            },
+            "SignUpRequestBody": {
+                "type": "object",
+                "properties": {
+                    "email": { "type": "string" },
+                    "login": { "type": "string" },
+                    "password": { "type": "string" }
+                }
+            },
+            "SignUpResponse": {
+                "type": "object",
+                "properties": {
+                    "message": { "type": "string" }
+                }                
+            },
+            "GetEmailResponse": {
+                "type": "object",
+                "properties": {
+                    "message": { "type": "string" },
+                    "email": { "type": "string" }
+                }
+                
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
             }
         }
     }
