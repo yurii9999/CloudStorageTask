@@ -1,9 +1,9 @@
 import { User } from "../models/userModels";
-import { AuthData, NewUser, SignInData, SignUpMessage } from "../ts/types";
+import { AuthData, UserData, SignInData, SignUpMessage } from "../ts/types";
 import { JwtService } from "./jwtService";
 
 export default class UserService {
-    static async signUpUser(newUser: NewUser) {
+    static async signUpUser(newUser: UserData) {
         if (!newUser.email || !newUser.login || !newUser.password)
             return { message: "You have to specify login, email and password to sign up" }
 

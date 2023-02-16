@@ -18,7 +18,7 @@ type Message = {
 
 export type GetEmailMessage = Message & { email?: string }
 
-export type NewUser = {
+export type UserData = {
     login: string,
     password: string,
     email: string
