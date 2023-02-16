@@ -1,9 +1,9 @@
 import ApiResponseHandler from '../apiResponseHandler';
 import { Request, Response, NextFunction } from 'express';
-import { AuthData, GetEmailResponse } from '../../../ts/types';
+import { AuthData, GetEmailMessage } from '../../../ts/types';
 import UserService from '../../../services/userService';
 
-export default async (req: Request<AuthData>, res: Response<GetEmailResponse>) => {
+export default async (req: Request<AuthData>, res: Response<GetEmailMessage>) => {
     try {
         const authData: AuthData = req.params
         const response = await UserService.getEmail(authData)

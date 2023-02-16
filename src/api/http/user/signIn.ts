@@ -1,10 +1,10 @@
 import ApiResponseHandler from '../apiResponseHandler';
 import { Request, Response } from 'express';
-import { SignInData, SignInResponse } from '../../../ts/types';
+import { SignInData, SignInMessage } from '../../../ts/types';
 import UserService from '../../../services/userService';
 
 
-export default async (req: Request<{},{}, SignInData>, res: Response<SignInResponse>) => {
+export default async (req: Request<{},{}, SignInData>, res: Response<SignInMessage>) => {
     try {
         const signInData: SignInData = req.body
         const signInResponse = await UserService.signInUser(signInData)

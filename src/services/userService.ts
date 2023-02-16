@@ -1,5 +1,5 @@
 import { User } from "../models/userModels";
-import { AuthData, NewUser, SignInData, SignUpResponse } from "../ts/types";
+import { AuthData, NewUser, SignInData, SignUpMessage } from "../ts/types";
 import { JwtService } from "./jwtService";
 
 export default class UserService {
@@ -26,7 +26,7 @@ export default class UserService {
     static async getEmail(authData: AuthData) {
         if (!authData.user_id) 
             return { message: "You need to authorize to view email" }
-            
+
         const user = await User.findById(authData.user_id)
         if ( user === null )
             return { message: "Can't find any users" }
