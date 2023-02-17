@@ -21,15 +21,15 @@ export default class UserService {
         if ( user === null ) 
             return { message: "Incorrect login or password" }
         
-        const token: string = JwtService.sign( { user_id: user._id.toString() } )
+        const token: string = JwtService.sign( { _id: user._id.toString() } )
         return { message: "Successfully signed in", token: token }
     }
 
     static async getEmail(authData: AuthData) {
-        if (!authData.user_id) 
+        if (!authData._id) 
             return { message: "You need to authorize to view email" }
 
-        const user = await User.findById({ _id: authData.user_id })
+        const user = await User.findById(authData)
         if ( user === null )
             return { message: "Can't find any users" }
         

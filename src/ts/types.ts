@@ -50,7 +50,7 @@ export type SignInMessage = Message & { token?: string }
 import { JwtPayload } from 'jsonwebtoken';
 
 export type AuthData =  {
-    user_id: string
+    _id: string
 }
 
 export type ExpectedJwrPayload = JwtPayload & AuthData
