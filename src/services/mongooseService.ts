@@ -5,6 +5,7 @@ const dbConnection = getConfig().DATABASE_CONNECTION || "mongodb+srv://testUser:
 
 export class MongooseService {
     static async connect() {
+        mongoose.set('strictQuery', true)
         await mongoose.connect(dbConnection);
     }
 }
