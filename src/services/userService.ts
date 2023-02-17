@@ -1,21 +1,23 @@
 import { User } from "../models/userModels";
-import { AuthData, UserData, SignInData, SignUpMessage } from "../ts/types";
+import { UserProviders } from "../providers/userProviders";
+import { AuthData, NewUser, SignInData } from "../ts/types";
 import { JwtService } from "./jwtService";
 
 export default class UserService {
-    static async signUpUser(newUser: UserData) {
+    static async signUpUser(newUser: NewUser) {
         if (!newUser.email || !newUser.login || !newUser.password)
             return { message: "You have to specify login, email and password to sign up" }
 
-        const user = new User( newUser );
-        await user.save()
+        UserProviders.createUser( newUser )
+
         return { message: "New user created" }
     }
 
     static async signInUser(signInData: SignInData) {
         if ( !signInData.login || !signInData.password )
             return { message: "You have to specify login and password to sign in" }
-        const user = await User.findOne( signInData )
+        
+        const user = await UserProviders.findUser( signInData )
         if ( user === null ) 
             return { message: "Incorrect login or password" }
         
@@ -27,7 +29,7 @@ export default class UserService {
         if (!authData.user_id) 
             return { message: "You need to authorize to view email" }
 
-        const user = await User.findById(authData.user_id)
+        const user = await User.findById({ _id: authData.user_id })
         if ( user === null )
             return { message: "Can't find any users" }
         
