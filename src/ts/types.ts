@@ -18,12 +18,6 @@ type Message = {
 
 export type GetEmailMessage = Message & { email?: string }
 
-export type NewUser = {
-    login: string,
-    password: string,
-    email: string
-}
-
 export type UserData = {
     login: string,
     password: string,
@@ -31,26 +25,19 @@ export type UserData = {
     _id: string
 }
 
-export type UserSearch = {
-    login?: string,
-    password?: string,
-    email?: string,
-    _id?: string
-}
+export type NewUser = Pick<UserData, "password" | "email" | "login">
+
+export type UserSearch = Partial<UserData>
 
 export type SignUpMessage = Message
 
-export type SignInData = {
-    login: string,
-    password: string
-}
+
+export type SignInData = Pick<UserData, "login" | "password">
 
 export type SignInMessage = Message & { token?: string }
 
 import { JwtPayload } from 'jsonwebtoken';
 
-export type AuthData =  {
-    _id: string
-}
+export type AuthData = Pick<UserData, "_id">
 
 export type ExpectedJwrPayload = JwtPayload & AuthData
