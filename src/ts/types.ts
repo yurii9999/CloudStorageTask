@@ -39,7 +39,7 @@ export type SignInMessage = Message & { token?: string }
 export type AuthData = Pick<UserData, "_id">
 
 import { JwtPayload } from 'jsonwebtoken';
-export type ExpectedJwrPayload = JwtPayload & AuthData
+export type ExpectedJwtPayload = JwtPayload & AuthData
 
 import {Request} from 'express'
 export type AuthorizedRequest = Request & AuthData
