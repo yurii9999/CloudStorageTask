@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { JwtService } from '../services/jwtService';
+import { AuthorizedRequest } from '../ts/types';
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     try {
@@ -7,9 +8,13 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
         if (!token)
             return next();
 
-        req.params = JwtService.decode(token)
+        try {
+            (req as AuthorizedRequest)._id = JwtService.decode(token)._id
+        }
+        finally {
+            return next();
+        }
         
-        return next();
     } catch (error) {
         next(error);
     }
