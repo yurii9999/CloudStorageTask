@@ -6,8 +6,8 @@ import UserService from '../../../services/userService';
 export default async (req: Request<AuthData>, res: Response<GetEmailMessage>) => {
     try {
         const authData: AuthData = req.params
-        const response = await UserService.getEmail(authData)
-        await ApiResponseHandler.success(req, res, response)
+        const {code, payload} = await UserService.getEmail(authData)
+        await ApiResponseHandler.customSuccess(req, res, payload, code)
     } catch (error) {
         await ApiResponseHandler.error(req, res, error);
     }

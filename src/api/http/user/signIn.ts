@@ -7,8 +7,8 @@ import UserService from '../../../services/userService';
 export default async (req: Request<{},{}, SignInData>, res: Response<SignInMessage>) => {
     try {
         const signInData: SignInData = req.body
-        const signInResponse = await UserService.signInUser(signInData)
-        await ApiResponseHandler.success(req, res, signInResponse)
+        const {code, payload} = await UserService.signInUser(signInData)
+        await ApiResponseHandler.customSuccess(req, res, payload, code)
     } catch (error) {
         await ApiResponseHandler.error(req, res, error);
     }
